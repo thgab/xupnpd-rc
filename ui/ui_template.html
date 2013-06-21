@@ -1,27 +1,62 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>${title}</title>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" href="/ui/style">
-</head>
+	<head>
+		<title>${title}</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/ui/style">
+		<style>
+			body {
+				padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+			}
+		</style>
+		<link rel="stylesheet" href="/ui/styleres">
+	</head>
 
-<body>    
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="#">xupnpd</a>
+					<div class="nav-collapse collapse" style="height: 0px;">
+						<ul class="nav">
+							<li><a href="/ui/"><i class="icon-home icon-white"></i>Home</a></li>
+							<li><a href='/ui/playlists'><i class="icon-list icon-white"></i>Playlists</a></li>
+							<li><a href='/ui/feeds'><i class="icon-film icon-white"></i>Feeds</a></li>
+							<li><a href='/ui/downloads'><i class="icon-download icon-white"></i>Downloads</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil icon-white"></i>Config <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href='/ui/config'>Main</a></li>
+									<li><a href='/ui/plugins'>Plugins</a></li>
+									<li><a href='/ui/profiles'>Profiles</a></li>
+									<li><a href='/ui/restart'>Restart</a></li>
+								</ul>
+							</li>
+							<li><a href='/ui/status'><i class="icon-cog icon-white"></i>Status</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			${content}
+			<hr>
+			<footer>
+				<p>
+					Copyright (C) 2011-2012 Anton Burdinuk &lt;<a href='mailto:clark15b@gmail.com'>clark15b@gmail.com</a>&gt;<br/>
+					License: <a href='http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt'>GPL-2.0</a><br/>
+					www: <a href='http://xupnpd.org'>http://xupnpd.org</a><br/>
+				</p>
+			</footer>
+		</div>
 
-<div class="container">
-
-${content}
-
-<br/>
-<hr/>
-<p style='font-size: 8pt' align=left>
-Copyright (C) 2011-2012 Anton Burdinuk &lt;<a href='mailto:clark15b@gmail.com'>clark15b@gmail.com</a>&gt;<br/>
-License: <a href='http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt'>GPL-2.0</a><br/>
-www: <a href='http://xupnpd.org'>http://xupnpd.org</a><br/>
-
-</p>
-
-</div>
-
-</body>
+		<script src="/ui/jq"></script>
+		<script src="/ui/js"></script>
+	</body>
 </html>

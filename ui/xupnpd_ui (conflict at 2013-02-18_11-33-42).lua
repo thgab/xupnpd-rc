@@ -11,6 +11,7 @@ end
 
 function ui_error()
     http.send('<h2>Error occurred</h3>')
+    http.send('<br/><a class="btn btn-info" href="/ui">Back</a>')
 end
 
 function ui_downloads()
@@ -20,6 +21,7 @@ function ui_downloads()
         http.send(string.format('<tr><td><a href="/ui/%s.m3u">%s</a></td></tr>',j.name,j.name))
     end
     http.send('</table>')
+    http.send('<br/><a class="btn btn-info" href="/ui">Back</a>')
 end
 
 function ui_download(name)
@@ -90,7 +92,7 @@ function ui_playlists()
     http.send('<input type=file name=m3ufile><br /><br />')
     http.send('<input class="btn btn-primary" type=submit value=Send>')
     http.send('</form><hr/>')
-    http.send('<br/><a class="btn btn-primary" href="/ui/reload">Reload</a> <a class="btn btn-primary" href="/ui/reload_feeds?return_url=/ui/playlists">Reload feeds</a> ')
+    http.send('<br/><a class="btn btn-primary" href="/ui/reload">Reload</a> <a class="btn btn-primary" href="/ui/reload_feeds?return_url=/ui/playlists">Reload feeds</a> <a class="btn btn-info" href="/ui">Back</a>')
 end
 
 function ui_feeds()
@@ -124,7 +126,7 @@ function ui_feeds()
     http.send('<br/><input class="btn btn-primary" type=submit value=Add> <a class="btn btn-info" href="/ui/fhelp" target="_blank">Help</a>')
     http.send('</form><hr/>')
 
-    http.send('<br/><a class="btn btn-primary" href="/ui/save_feeds">Save</a> <a class="btn btn-primary" href="/ui/reload_feeds?return_url=/ui/feeds">Reload feeds</a> ')
+    http.send('<br/><a class="btn btn-primary" href="/ui/save_feeds">Save</a> <a class="btn btn-primary" href="/ui/reload_feeds?return_url=/ui/feeds">Reload feeds</a> <a class="btn btn-info" href="/ui">Back</a>')
 end
 
 function ui_fhelp()
@@ -255,7 +257,7 @@ end
 function ui_show()
     if ui_args.fname then
         local real_name=util.urldecode(ui_args.fname)
-        if string.find(real_name,'^[^-/\\]+%.m3u$') then
+        if string.find(real_name,'^[^/\\]+%.m3u$') then
 
             local path=cfg.playlists_path
             if ui_args.feed=='1' then path=cfg.feeds_path end
@@ -431,7 +433,7 @@ function ui_status()
 
     http.send('</table>')
 
-    http.send('<br/><a class="btn btn-primary" href="/ui/status">Refresh</a> ')
+    http.send('<br/><a class="btn btn-primary" href="/ui/status">Refresh</a> <a class="btn btn-info" href="/ui">Back</a>')
 end
 
 function ui_kill()
@@ -466,7 +468,7 @@ function ui_upload()
                 local pls=m3u.parse(tfname)
 
                 if pls then
-                    if os.execute(string.format('mv %s %s',tfname,cfg.playlists_path..fname))~=0 then
+                    if os.execute(string.format('mv "%s" "%s"',tfname,cfg.playlists_path..fname))~=0 then
                         os.remove(tfname)
                         http.send('<h3>Fail</h3>')
                     else
@@ -584,29 +586,9 @@ function ui_handler(args,data,ip,url)
 
     local action=string.match(url,'^/ui/(.+)$')
 
-	if action=='style' then
+    if action=='style' then
         http_send_headers(200,'css')
         http.sendfile(cfg.ui_path..'bootstrap.min.css')
-        return
-    elseif action=='styleres' then
-        http_send_headers(200,'css')
-        http.sendfile(cfg.ui_path..'bootstrap-responsive.min.css')
-        return
-	elseif action=='js' then
-        http_send_headers(200,'js')
-        http.sendfile(cfg.ui_path..'bootstrap.min.js')
-        return
-	elseif action=='jq' then
-        http_send_headers(200,'js')
-        http.sendfile(cfg.ui_path..'jquery.min.js')
-        return
-	elseif action=='glyphicons-halflings.png' then
-        http_send_headers(200,'png')
-        http.sendfile(cfg.ui_path..'glyphicons-halflings.png')
-        return
-	elseif action=='glyphicons-halflings-white.png' then
-        http_send_headers(200,'png')
-        http.sendfile(cfg.ui_path..'glyphicons-halflings-white.png')
         return
     elseif action=='api' then
         ui_api_call(args)
