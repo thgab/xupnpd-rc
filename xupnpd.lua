@@ -1,7 +1,7 @@
 cfg={}
 
 -- multicast interface for SSDP exchange, 'eth0', 'br0', 'br-lan' for example
-cfg.ssdp_interface='br-lan'
+cfg.ssdp_interface='127.0.0.1'
 
 -- 'cfg.ssdp_loop' enables multicast loop (if player and server in one host)
 cfg.ssdp_loop=0
@@ -32,7 +32,7 @@ cfg.debug=1
 --cfg.udpxy_url='http://192.168.1.1:4022'
 
 -- downstream interface for builtin multicast proxy (comment 'cfg.udpxy_url' for processing 'udp://@...' playlists)
-cfg.mcast_interface='eth1'
+cfg.mcast_interface='127.0.0.1'
 
 -- 'cfg.proxy' enables proxy for injection DLNA headers to stream
 -- 0-off, 1-radio, 2-radio/TV
