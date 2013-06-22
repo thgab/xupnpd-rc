@@ -52,7 +52,7 @@ function viasat_play_sendurl(viasat_play_url,range)
 	-- if plugin_sendurl_from_cache(viasat_play_url,range) then return end
 	local clip_page=plugin_download(viasat_play_url)
 	if clip_page then
-		local video_url=string.match(clip_page,'.-<source type="video/mp4" src="(.-)">.-')
+		local video_url=string.match(clip_page,'.- video_src = "(.-)";.-')
 		if video_url then
 			plugin_sendurl(viasat_play_url,video_url,range)
 		end
