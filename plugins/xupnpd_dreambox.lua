@@ -123,7 +123,7 @@ function dreambox_updatefeed(feed,friendly_name)
 			m3ufile:write(dreambox_url.."stream.m3u?ref="..channelreference.."\n")
 		    end
 		    m3ufile:close()
-		    os.execute(string.format('mv %s %s',m3ufilename,feedspath))
+		    os.rename(m3ufilename,feedspath)
 		    rc=true
 		end
 	    end
@@ -138,7 +138,7 @@ function dreambox_updatefeed(feed,friendly_name)
 	m3ufile:write("#EXTINF:0,3-Заснуть\n")
 	m3ufile:write(dreambox_url.."command=off\n")
 	m3ufile:close()
-	os.execute(string.format('mv %s %s',m3ufilename,feedspath))
+	os.rename(m3ufilename,feedspath)
     end
 return rc
 end

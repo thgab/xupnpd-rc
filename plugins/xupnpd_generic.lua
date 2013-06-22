@@ -13,7 +13,7 @@ function generic_updatefeed(feed,friendly_name)
     end
 
     if util.md5(tmp_path)~=util.md5(feed_path) then
-        if os.execute(string.format('mv %s %s',tmp_path,feed_path))==0 then
+        if os.rename(tmp_path,feed_path) then
             if cfg.debug>0 then print('feed \''..feed_name..'\' updated') end
             return true
         end

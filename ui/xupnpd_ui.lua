@@ -466,7 +466,7 @@ function ui_upload()
                 local pls=m3u.parse(tfname)
 
                 if pls then
-                    if os.execute(string.format('mv %s %s',tfname,cfg.playlists_path..fname))~=0 then
+                    if not os.rename(tfname,cfg.playlists_path..fname) then
                         os.remove(tfname)
                         http.send('<h3>Fail</h3>')
                     else
